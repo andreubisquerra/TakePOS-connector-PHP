@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package scale;
+
+import static java.lang.System.out;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
+/**
+ *
+ * @author Programació
+ */
+public class Scale {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+        
+        
+        
+       SerialPort serialPort = new SerialPort("COM1");
+
+              
+       try {
+            
+            serialPort.openPort();
+            serialPort.setParams(9600, 8, 1, 0);
+            serialPort.writeBytes("$".getBytes());
+            byte[] buffer = serialPort.readBytes(1);
+            out.println(serialPort.readString());
+            serialPort.closePort();
+        } catch (SerialPortException ex) {
+            Logger.getLogger(Scale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                   
+        
+        
+        
+    }
+    
+}

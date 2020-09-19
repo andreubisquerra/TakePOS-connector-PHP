@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 $arg1 = "Multi Return";
 exec("java -jar scale.jar $arg1",$output);
 

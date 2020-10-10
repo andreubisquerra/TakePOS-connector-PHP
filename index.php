@@ -172,6 +172,14 @@
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
+			
+			<?php
+			if ($_GET["page"]=="printer1"){
+				exec("java -jar printer/LoadPrinters.jar",$output);
+				//print_r($output);
+			}
+			?>
+
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">

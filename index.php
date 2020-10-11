@@ -40,6 +40,11 @@
 		var text= sel.options[sel.selectedIndex].text;
 		location.href="index.php?page=<?php echo $_GET["page"];?>&set="+text;
 	}
+	function setscale()
+	{
+		var port = document.getElementById("scale").value;
+		location.href="index.php?page=<?php echo $_GET["page"];?>&set="+port;
+	}
 	</script>
 
 </head>
@@ -375,7 +380,7 @@ if (!empty($_GET["set"])){
                                                     <select name="printer" id="printer" class="form-control-lg form-control">
                                                         <option value="0">Please select</option>
 														<?php
-														$savedprinter = file_get_contents($_GET["page"].'.ini');
+														@$savedprinter = file_get_contents($_GET["page"].'.ini');
 														foreach($printers as $key=>$value) {
 															echo '<option value="'.$key.'" ';
 															if ($savedprinter==$value) echo 'selected';
@@ -388,6 +393,33 @@ if (!empty($_GET["set"])){
                                     </div>
 									<div class="card-footer">
                                         <button type="submit" class="btn btn-success btn-sm" onclick="setprinter(<?php str_replace("printer", "", $_GET["page"]);?>);">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+						<?php
+						
+						}
+						
+						else if (strpos($_GET["page"], 'scale') !== false){
+						@$scale = file_get_contents($_GET["page"].'.ini');					
+						?>
+						<div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Scale</strong> settings
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <div class="has-success form-group">
+                                            <label for="inputIsValid" class=" form-control-label">Scale port (For example: COM1)</label>
+                                            <div class="col-12 col-md-9">
+                                                    <input id="scale" name="scale" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $scale;?>">
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="card-footer">
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="setscale();">
                                             <i class="fa fa-dot-circle-o"></i> Submit
                                         </button>
                                     </div>

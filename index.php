@@ -38,7 +38,7 @@
 	{
 		var sel = document.getElementById("printer");
 		var text= sel.options[sel.selectedIndex].text;
-		location.href="index.php?page=printer1&set="+text;
+		location.href="index.php?page=<?php echo $_GET["page"];?>&set="+text;
 	}
 	</script>
 
@@ -47,7 +47,7 @@
 <?php
 
 if (!empty($_GET["set"])){
-	$file = 'printer1.ini';
+	$file = $_GET["page"].'.ini';
 	$content = $_GET["set"];
 	file_put_contents($file, $content);
 }
@@ -120,15 +120,15 @@ if (!empty($_GET["set"])){
                                 <i class="fas fa-table"></i>Printer 1</a>
                         </li>
                         <li>
-                            <a href="form.html">
+                            <a href="index.php?page=printer2">
                                 <i class="far fa-check-square"></i>Printer 2</a>
                         </li>
                         <li>
-                            <a href="calendar.html">
+                            <a href="index.php?page=printer3">
                                 <i class="fas fa-calendar-alt"></i>Printer 3</a>
                         </li>
                         <li>
-                            <a href="map.html">
+                            <a href="index.php?page=scale">
                                 <i class="fas fa-map-marker-alt"></i>Scale</a>
                         </li>
                     </ul>
@@ -196,7 +196,7 @@ if (!empty($_GET["set"])){
 			if (empty($_GET["page"])){
 				//Main page code
 			}
-			else if ($_GET["page"]=="printer1"){
+			else if (strpos($_GET["page"], 'printer') !== false){
 				exec("java -jar printer/LoadPrinters.jar",$output);
 				//print_r($output);
 			}
@@ -210,7 +210,7 @@ if (!empty($_GET["set"])){
                                     <h2 class="title-1">
 									<?php
 									if (empty($_GET["page"])) echo "Overview";
-									else if ($_GET["page"]=="printer1") echo "";
+									else if (strpos($_GET["page"], 'printer') !== false) echo "";
 									?>
 									</h2>
                                 </div>
@@ -360,7 +360,7 @@ if (!empty($_GET["set"])){
 						
 						<?php }
 						
-						else if ($_GET["page"]=="printer1"){
+						else if (strpos($_GET["page"], 'printer') !== false){
 						$printers = parse_ini_file("printers.ini");						
 						?>
 						<div class="col-lg-6">
@@ -375,7 +375,7 @@ if (!empty($_GET["set"])){
                                                     <select name="printer" id="printer" class="form-control-lg form-control">
                                                         <option value="0">Please select</option>
 														<?php
-														$savedprinter = file_get_contents('printer1.ini');
+														$savedprinter = file_get_contents($_GET["page"].'.ini');
 														foreach($printers as $key=>$value) {
 															echo '<option value="'.$key.'" ';
 															if ($savedprinter==$value) echo 'selected';
@@ -387,7 +387,7 @@ if (!empty($_GET["set"])){
                                         </div>
                                     </div>
 									<div class="card-footer">
-                                        <button type="submit" class="btn btn-success btn-sm" onclick="setprinter(1);">
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="setprinter(<?php str_replace("printer", "", $_GET["page"]);?>);">
                                             <i class="fa fa-dot-circle-o"></i> Submit
                                         </button>
                                     </div>

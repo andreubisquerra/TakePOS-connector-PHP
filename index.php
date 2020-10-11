@@ -32,8 +32,27 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+	
+	<script>
+	function setprinter(nprinter)
+	{
+		var sel = document.getElementById("printer");
+		var text= sel.options[sel.selectedIndex].text;
+		location.href="index.php?page=printer1&set="+text;
+	}
+	</script>
 
 </head>
+
+<?php
+
+if (!empty($_GET["set"])){
+	$file = 'printer1.ini';
+	$content = $_GET["set"];
+	file_put_contents($file, $content);
+}
+
+?>
 
 <body class="animsition">
     <div class="page-wrapper">
@@ -174,7 +193,10 @@
             <div class="main-content">
 			
 			<?php
-			if ($_GET["page"]=="printer1"){
+			if (empty($_GET["page"])){
+				//Main page code
+			}
+			else if ($_GET["page"]=="printer1"){
 				exec("java -jar printer/LoadPrinters.jar",$output);
 				//print_r($output);
 			}
@@ -188,7 +210,7 @@
                                     <h2 class="title-1">
 									<?php
 									if (empty($_GET["page"])) echo "Overview";
-									else if ($_GET["page"]=="printer1") echo "Printer 1";
+									else if ($_GET["page"]=="printer1") echo "";
 									?>
 									</h2>
                                 </div>
@@ -335,9 +357,43 @@
                                 </div>
                             </div>
                         </div>
+						
 						<?php }
+						
 						else if ($_GET["page"]=="printer1"){
-						$matriz_ini = parse_ini_file("ejemplo.ini");
+						$printers = parse_ini_file("printers.ini");						
+						?>
+						<div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Printer 1</strong> settings
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <div class="has-success form-group">
+                                            <label for="inputIsValid" class=" form-control-label">Select printer</label>
+                                            <div class="col-12 col-md-9">
+                                                    <select name="printer" id="printer" class="form-control-lg form-control">
+                                                        <option value="0">Please select</option>
+														<?php
+														$savedprinter = file_get_contents('printer1.ini');
+														foreach($printers as $key=>$value) {
+															echo '<option value="'.$key.'" ';
+															if ($savedprinter==$value) echo 'selected';
+															echo '>'.$value.'</option>';
+														}
+														?>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="card-footer">
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="setprinter(1);">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+						<?php
 						
 						}
 						?>

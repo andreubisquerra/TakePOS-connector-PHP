@@ -6,4 +6,4 @@ It uses the mike42 library to generate the files to be printed and our small Jav
 
 TakePOS is included in Dolibarr and can be downloaded from [oficial website](http://takepos.com)
 
-![ScreenShot](https://raw.githubusercontent.com/andreubisquerra/TakePOS-connector-PHP/develop/screenshot.jpg)
+![ScreenShot](https://raw.githubusercontent.com/andreubisquerra/TakePOS-connector-PHP/master/screenshot.JPG)

@@ -33,6 +33,7 @@ public class Print {
     public static void main(String[] args) {    
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     String printerName = args[0];
+    String nprinter = args[1];
     boolean printerCheck = false;
     DocPrintJob job = null;
     PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
@@ -40,7 +41,7 @@ public class Print {
             if (printer.getName().contains(printerName)) {
                 FileInputStream in = null;
                 try {
-                    in = new FileInputStream(new File("invoice.txt"));
+                    in = new FileInputStream(new File("invoice"+nprinter+".txt"));
                     DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
                     Doc doc = new SimpleDoc(in, flavor, null);
                     job = printer.createPrintJob();

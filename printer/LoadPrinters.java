@@ -25,7 +25,7 @@ public class LoadPrinters {
         for (PrintService printer : printServices)
         {
             try{
-                ini.put("Printers", Integer.toString(i), printer.getName());
+                ini.put("Printers", Integer.toString(i), '"'+printer.getName()+'"');
                 i++;
             }catch(Exception e){
                 System.err.println(e.getMessage());

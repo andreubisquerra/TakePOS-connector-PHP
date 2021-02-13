@@ -1,6 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-$data=base64_decode($_POST["invoice"]);
+$data=$_POST["invoice"];
+$data=base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
 if (empty($_GET["printer"])) $nprinter=1;
 else $nprinter=$_GET["printer"];
 echo "Printer number: ".$nprinter."<br>";

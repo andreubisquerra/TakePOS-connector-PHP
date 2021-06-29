@@ -5,6 +5,7 @@
  */
 package scale;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.SerialPort;
@@ -50,7 +51,14 @@ public class Scale {
             for (int i = 0; i < serialPort.getLinesStatus().length; i++) {
                 builder.append(serialPort.readString(SerialPort.STOPBITS_2));
             }
-            System.out.println(builder.toString());
+            StringBuilder filteredBuffer = new StringBuilder();
+            for(char c: builder.toString().toCharArray()){
+                if(Character.isDigit(c)|| c == '.'){
+                    filteredBuffer.append(c);
+                }
+            }
+            String result = filteredBuffer.toString();
+            System.out.println(Double.parseDouble(result));
 
         } catch (SerialPortException ex) {
             Logger.getLogger(Scale.class.getName()).log(Level.SEVERE, null, ex);

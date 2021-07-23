@@ -136,6 +136,10 @@ if (!empty($_GET["set"])){
                             <a href="index.php?page=scale">
                                 <i class="fas fa-map-marker-alt"></i>Scale</a>
                         </li>
+						<li>
+                            <a href="index.php?page=display">
+                                <i class="fas fa-map-marker-alt"></i>Customer Display</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -428,6 +432,36 @@ if (!empty($_GET["set"])){
 						<?php
 						
 						}
+						
+						
+						else if (strpos($_GET["page"], 'display') !== false){
+						@$scale = file_get_contents($_GET["page"].'.ini');					
+						?>
+						<div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Customer Display</strong> settings
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <div class="has-success form-group">
+                                            <label for="inputIsValid" class=" form-control-label">Customer Display port (For example: COM1)</label>
+                                            <div class="col-12 col-md-9">
+                                                    <input id="scale" name="scale" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $scale;?>">
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="card-footer">
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="setscale();">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+						<?php
+						
+						}
+						
+						
 						?>
                         
                         <div class="row">
